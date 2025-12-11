@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Premium marketing agency specializing in web design, digital marketing, and HubSpot implementation. Transform your business with stunning websites and data-driven marketing strategies.">
+    <meta name="keywords"
+        content="web design, digital marketing, HubSpot, marketing agency, website development, HubSpot implementation">
+    <title>Elevate Digital - Marketing & Web Design Agency | HubSpot Experts</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M16 4L28 20H4L16 4Z" fill="url(#logoGradient)" />
+                    <path d="M10 20L16 12L22 20H10Z" fill="#FFFFFF" />
+                    <rect x="14" y="20" width="4" height="8" fill="url(#logoGradient)" />
+                </svg>
+                Elevate Digital
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact" class="btn btn-primary">Get Started</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Transform Your Digital Presence</h1>
+                <p class="hero-subtitle">
+                    We craft stunning websites and data-driven marketing strategies that convert.
+                    Specializing in Web Design, Digital Marketing, and HubSpot Implementation.
+                </p>
+                <div class="hero-cta">
+                    <a href="#portfolio" class="btn btn-primary">View Our Work</a>
+                    <a href="#contact" class="btn btn-secondary">Start Your Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Our Expertise</h2>
+                <p>Comprehensive digital solutions to elevate your brand and drive growth</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">🎨</div>
+                    <h3>Web Design & Development</h3>
+                    <p>
+                        Beautiful, responsive websites that captivate your audience and drive conversions.
+                        We blend stunning design with seamless functionality.
+                    </p>
+                </div>
+
+                <div class="service-card fade-in">
+                    <div class="service-icon">📈</div>
+                    <h3>Digital Marketing</h3>
+                    <p>
+                        Data-driven marketing strategies across SEO, social media, content marketing,
+                        and paid advertising to grow your business.
+                    </p>
+                </div>
+
+                <div class="service-card fade-in">
+                    <div class="service-icon">🧡</div>
+                    <h3>HubSpot Marketing</h3>
+                    <p>
+                        Expert HubSpot implementation, automation, and optimization.
+                        Maximize your ROI with the world's leading growth platform.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="section" id="portfolio">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Our Portfolio</h2>
+                <p>Explore our recent projects and success stories</p>
+            </div>
+
+            <div class="portfolio-filters fade-in">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web-design">Web Design</button>
+                <button class="filter-btn" data-filter="marketing">Marketing</button>
+                <button class="filter-btn" data-filter="hubspot">HubSpot</button>
+            </div>
+
+            <div class="portfolio-grid" id="portfolioGrid">
+                <div class="portfolio-item fade-in" data-category="web-design" data-case-study="ecommerce"
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); cursor: pointer;">
+                    <img src="images/ecommerce_redesign.png" alt="E-commerce Redesign Project" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3>E-commerce Redesign</h3>
+                        <div>
+                            <span class="portfolio-tag">Web Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="marketing" data-case-study="social-media"
+                    style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); cursor: pointer;">
+                    <img src="images/social_media_campaign.png" alt="Social Media Campaign Project"
+                        class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3>Social Media Campaign</h3>
+                        <div>
+                            <span class="portfolio-tag">Marketing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="hubspot" data-case-study="hubspot-crm"
+                    style="background: linear-gradient(135deg, #ff7a59 0%, #ff9a56 100%); cursor: pointer;">
+                    <img src="images/hubspot_crm_setup.png" alt="HubSpot CRM Setup Project" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3>HubSpot CRM Setup</h3>
+                        <div>
+                            <span class="portfolio-tag">HubSpot</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="web-design" data-case-study="saas-landing"
+                    style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); cursor: pointer;">
+                    <img src="images/saas_landing_page.png" alt="SaaS Landing Page Project" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3>SaaS Landing Page</h3>
+                        <div>
+                            <span class="portfolio-tag">Web Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="marketing hubspot"
+                    data-case-study="marketing-automation"
+                    style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); cursor: pointer;">
+                    <img src="images/marketing_automation.png" alt="Marketing Automation Project"
+                        class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3>Marketing Automation</h3>
+                        <div>
+                            <span class="portfolio-tag">Marketing</span>
+                            <span class="portfolio-tag">HubSpot</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="web-design" data-case-study="corporate-website"
+                    style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); cursor: pointer;">
+                    <img src="images/corporate_website.png" alt="Corporate Website Project" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3>Corporate Website</h3>
+                        <div>
+                            <span class="portfolio-tag">Web Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section" id="testimonials">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Client Success Stories</h2>
+                <p>Hear what our clients have to say about working with us</p>
+            </div>
+
+            <div class="testimonials-container fade-in">
+                <div class="testimonial active" data-testimonial="1">
+                    <p class="testimonial-text">
+                        "Elevate Digital transformed our online presence completely. Our new website is stunning,
+                        and the HubSpot integration has doubled our lead generation. Highly recommend!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>CEO, TechStart Inc</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial" data-testimonial="2" style="display: none;">
+                    <p class="testimonial-text">
+                        "The team's expertise in digital marketing is unmatched. Our ROI increased by 300%
+                        within 6 months. They truly understand how to drive results."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-info">
+                            <h4>Michael Chen</h4>
+                            <p>Marketing Director, GrowthCo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial" data-testimonial="3" style="display: none;">
+                    <p class="testimonial-text">
+                        "Outstanding work on our HubSpot implementation. The automation workflows they set up
+                        have saved us countless hours and improved our customer engagement significantly."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-info">
+                            <h4>Samuel Udo</h4>
+                            <p>Founder, Digital Solutions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-nav">
+                    <span class="testimonial-dot active" data-slide="1"></span>
+                    <span class="testimonial-dot" data-slide="2"></span>
+                    <span class="testimonial-dot" data-slide="3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Let's Work Together</h2>
+                <p>Ready to elevate your digital presence? Get in touch with us today</p>
+            </div>
+
+            <div class="contact-content fade-in">
+                <form class="contact-form" id="contactForm" action="https://formsubmit.co/edohoeketio@gmail.com"
+                    method="POST">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_subject" value="New Contact Form Submission - Elevate Digital">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="box">
+                    <input type="hidden" name="_next" value="https://marketing-agency-red.vercel.app/#contact">
+                    <input type="hidden" name="_replyto" id="replyToField">
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service">Service Interest</label>
+                        <input type="text" id="service" name="service"
+                            placeholder="e.g., Web Design, Marketing, HubSpot">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">Project Budget</label>
+                        <select id="budget" name="budget" required>
+                            <option value="">Select your budget range</option>
+                            <option value="Under $2,500">Under $2,500</option>
+                            <option value="$2,500 - $5,000">$2,500 - $5,000</option>
+                            <option value="$5,000 - $10,000">$5,000 - $10,000</option>
+                            <option value="$10,000 - $25,000">$10,000 - $25,000</option>
+                            <option value="$25,000 - $50,000">$25,000 - $50,000</option>
+                            <option value="$50,000+">$50,000+</option>
+                            <option value="I'm not sure yet">I'm not sure yet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary form-submit">Send Message</button>
+                </form>
+
+                <!-- Success Message -->
+                <div class="form-success-message" id="formSuccessMessage">
+                    <div class="success-icon">✓</div>
+                    <h3>Thank You!</h3>
+                    <p>Your message has been sent successfully. We'll get back to you soon!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="logo">Elevate Digital</h3>
+                    <p>
+                        A premium marketing agency specializing in web design,
+                        digital marketing, and HubSpot solutions.
+                    </p>
+                    <div class="hubspot-badge">
+                        🧡 HubSpot Certified Partner
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services">Web Design & Development</a></li>
+                        <li><a href="#services">Digital Marketing</a></li>
+                        <li><a href="#services">HubSpot Marketing</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <p>Email: hello@elevatedigital.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+                        <a href="#" class="social-link" aria-label="Instagram">📸</a>
+                        <a href="#" class="social-link" aria-label="Facebook">📘</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Elevate Digital. All rights reserved. | Crafted with passion by Maurice ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Case Study Modal -->
+    <div class="case-study-modal" id="caseStudyModal">
+        <div class="case-study-overlay" id="caseStudyOverlay"></div>
+        <div class="case-study-content">
+            <button class="case-study-close" id="closeModal">✕</button>
+            <div class="case-study-scroll">
+                <div class="case-study-header">
+                    <h2 id="caseStudyTitle"></h2>
+                    <div class="case-study-tags" id="caseStudyTags"></div>
+                </div>
+                <div class="case-study-hero-image" id="caseStudyHeroImage"></div>
+                <div class="case-study-body">
+                    <div class="case-study-section">
+                        <h3>Overview</h3>
+                        <p id="caseStudyOverview"></p>
+                    </div>
+                    <div class="case-study-section">
+                        <h3>Challenge</h3>
+                        <p id="caseStudyChallenge"></p>
+                    </div>
+                    <div class="case-study-section">
+                        <h3>Solution</h3>
+                        <p id="caseStudySolution"></p>
+                    </div>
+                    <div class="case-study-section">
+                        <h3>Results</h3>
+                        <div class="case-study-metrics" id="caseStudyMetrics"></div>
+                    </div>
+                    <div class="case-study-gallery" id="caseStudyGallery"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>
