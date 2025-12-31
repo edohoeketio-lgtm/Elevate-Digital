@@ -1,29 +1,75 @@
 /* ===== CSS CUSTOM PROPERTIES - DARK THEME ===== */
 :root {
+    /* ============================== */
+    /* === AITHRA SYSTEM VARIABLES === */
+    /* ============================== */
+    /* Core */
+    --bg: #07080B;
+    --surface: #0D0F14;
+    --surface-2: #101425;
+    --border: rgba(255, 255, 255, 0.08);
+
+    /* Text */
+    --text: rgba(255, 255, 255, 0.92);
+    --muted: rgba(255, 255, 255, 0.68);
+    --muted-2: rgba(255, 255, 255, 0.48);
+
+    /* Accent */
+    --accent: #EBF08D;
+    /* Preserving Lime Green Identity */
+    --accent-2: rgba(235, 240, 141, 0.18);
+
+    /* Radius */
+    --r-lg: 18px;
+    --r-md: 14px;
+    --r-sm: 10px;
+
+    /* Spacing scale */
+    --s-1: 6px;
+    --s-2: 10px;
+    --s-3: 14px;
+    --s-4: 18px;
+    --s-5: 24px;
+    --s-6: 32px;
+    --s-7: 48px;
+    --s-8: 64px;
+    --s-9: 96px;
+
+    /* Shadows */
+    --shadow-1: 0 1px 0 rgba(255, 255, 255, 0.04);
+    --shadow-2: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+    /* Typography */
+    --h1: clamp(34px, 4vw, 58px);
+    --h2: clamp(26px, 3vw, 40px);
+    --h3: 20px;
+    --body: 16px;
+    --lh: 1.6;
+
+    /* ============================== */
+    /* === LEGACY VARIABLES (COMPAT) === */
+    /* ============================== */
     /* Dark Theme Colors */
-    --color-bg-dark: #081122;
-    /* Deep Navy */
-    --color-bg-secondary: #0d1b33;
-    --color-bg-tertiary: #1A2436;
+    --color-bg-dark: var(--bg);
+    --color-bg-secondary: var(--surface);
+    --color-bg-tertiary: var(--surface-2);
     --color-card-light: #FFFFFF;
-    --color-card-dark: #121e31;
-    --color-card-border: rgba(255, 255, 255, 0.05);
+    --color-card-dark: var(--surface);
+    --color-card-border: var(--border);
 
     /* Accent Colors */
-    --color-primary: #EBF08D;
-    /* Lime Green */
+    --color-primary: var(--accent);
     --color-primary-dark: #dbe450;
     --color-secondary: #06B6D4;
-    --color-accent: #EBF08D;
-    /* Lime as accent too */
+    --color-accent: var(--accent);
 
     /* Text Colors */
-    --color-text-on-dark: #FFFFFF;
-    --color-text-secondary-dark: rgba(255, 255, 255, 0.75);
-    --color-text-muted: rgba(255, 255, 255, 0.5);
+    --color-text-on-dark: var(--text);
+    --color-text-secondary-dark: var(--muted);
+    --color-text-muted: var(--muted-2);
 
     /* Border Colors */
-    --color-border-dark: rgba(255, 255, 255, 0.08);
+    --color-border-dark: var(--border);
     --color-border-light: rgba(255, 255, 255, 0.15);
 
     /* Gradients */
@@ -32,21 +78,21 @@
     --gradient-card-hover: linear-gradient(135deg, rgba(235, 240, 141, 0.05) 0%, rgba(235, 240, 141, 0.02) 100%);
 
     /* Spacing */
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 2rem;
-    --spacing-lg: 3rem;
-    --spacing-xl: 5rem;
-    --spacing-2xl: 7rem;
+    --spacing-xs: var(--s-1);
+    --spacing-sm: var(--s-2);
+    --spacing-md: var(--s-5);
+    --spacing-lg: var(--s-7);
+    --spacing-xl: var(--s-8);
+    --spacing-2xl: var(--s-9);
 
     /* Typography */
     --font-heading: 'Inter Tight', sans-serif;
     --font-body: 'Inter', sans-serif;
 
     /* Borders & Radius */
-    --radius-sm: 6px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
+    --radius-sm: var(--r-sm);
+    --radius-md: var(--r-md);
+    --radius-lg: var(--r-lg);
     --radius-xl: 24px;
 
     /* Transitions */
@@ -54,8 +100,8 @@
     --transition-fast: all 0.2s ease-out;
 
     /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-sm: var(--shadow-1);
+    --shadow-md: var(--shadow-2);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.15);
 }
@@ -1288,5 +1334,209 @@ p {
     .comparison-table th,
     .comparison-table td {
         padding: 1rem 0.5rem;
+    }
+}
+
+/* ========================================= */
+/* === AITHRA SYSTEM UTILITIES & CLASSES === */
+/* ========================================= */
+
+/* --- LAYOUT --- */
+.container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.section {
+    padding: var(--s-9) 0;
+}
+
+.section--tight {
+    padding: var(--s-8) 0;
+}
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-5);
+}
+
+.grid {
+    display: grid;
+    gap: var(--s-5);
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- CARDS --- */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--s-6);
+    box-shadow: var(--shadow-1);
+    display: flex;
+    flex-direction: column;
+}
+
+.card--hover {
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.card--hover:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.14);
+    background: var(--surface-2);
+}
+
+/* --- BUTTONS --- */
+.btn {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: var(--r-md);
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: filter 0.2s;
+}
+
+.btn--primary {
+    background: var(--accent);
+    color: #0b0c10;
+}
+
+.btn--primary:hover {
+    filter: brightness(1.1);
+}
+
+.btn--secondary {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border);
+}
+
+.btn--secondary:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* --- TYPOGRAPHY UTILITIES --- */
+.lead {
+    font-size: 1.125rem;
+    color: var(--muted);
+    max-width: 68ch;
+    line-height: 1.6;
+}
+
+/* --- BADGES --- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.03);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge--popular {
+    border-color: rgba(235, 240, 141, 0.35);
+    background: var(--accent-2);
+    color: var(--accent);
+}
+
+/* --- LISTS --- */
+.list {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.list li {
+    color: var(--muted);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.list li::before {
+    content: "•";
+    color: var(--muted-2);
+}
+
+/* --- LOGO MARQUEE --- */
+.logo-marquee {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.logo-track {
+    display: flex;
+    gap: 4rem;
+    animation: scroll 25s linear infinite;
+    width: max-content;
+}
+
+.logo-track:hover {
+    animation-play-state: paused;
+}
+
+.logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+    min-width: 120px;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
     }
 }
