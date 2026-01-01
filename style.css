@@ -486,6 +486,10 @@ p {
 }
 
 /* ===== HERO SECTION ===== */
+#home {
+    padding-top: 180px;
+}
+
 .hero {
     min-height: 90vh;
     display: flex;
