@@ -347,3 +347,57 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// ===== LIGHTBOX (GALLERY ONLY) =====
+// Only targets images inside elements with data-gallery="true"
+// Uses event delegation for performance
+(function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox) return; // Exit if not on a page with lightbox
+
+    const lightboxImage = lightbox.querySelector('.lightbox-image');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+    // Open lightbox - event delegation on galleries
+    document.addEventListener('click', (e) => {
+        const galleryContainer = e.target.closest('[data-gallery="true"]');
+        if (!galleryContainer) return;
+
+        const clickedImg = e.target.closest('img');
+        if (!clickedImg) return;
+
+        // Open lightbox with clicked image
+        lightboxImage.src = clickedImg.src;
+        lightboxImage.alt = clickedImg.alt || '';
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // Focus close button for accessibility
+        setTimeout(() => lightboxClose?.focus(), 100);
+    });
+
+    // Close lightbox function
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        lightboxImage.src = '';
+    }
+
+    // Close button
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    // Click outside image closes
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target === lightboxImage.parentElement) {
+            closeLightbox();
+        }
+    });
+
+    // ESC key closes (integrated with existing ESC handler)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+})();
