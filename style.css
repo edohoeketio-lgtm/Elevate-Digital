@@ -116,6 +116,7 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
 }
 
 body {
@@ -1054,43 +1055,60 @@ p {
     }
 
     .nav-links {
-        display: none;
+        display: flex;
+        flex-direction: column;
         position: fixed;
+        width: 100%;
+        height: 100vh !important;
         top: 0;
         right: 0;
-        bottom: 0;
-        width: 85%;
-        max-width: 320px;
-        background: rgba(7, 8, 11, 0.98);
+        background: rgba(5, 5, 10, 0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        flex-direction: column;
-        padding: 5rem 2rem 2rem;
-        gap: 0.5rem;
-        border-left: 1px solid var(--border);
-        z-index: 200;
-        box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
-        overflow-y: auto;
+        padding: 6rem 2rem;
+        gap: 1.5rem;
+        z-index: 1000;
+        transform: translateX(100%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        align-items: center;
+        justify-content: center;
+        border-left: none;
     }
 
     .nav-links.active {
-        display: flex;
+        transform: translateX(0);
     }
 
     .nav-links a {
-        padding: 0.75rem 0;
-        font-size: 1.1rem;
-        border-bottom: 1px solid var(--border);
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--color-text-secondary-dark);
+        border-bottom: none;
+        padding: 0.5rem 0;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+        color: white;
+    }
+
+    /* Primary button in mobile menu */
+    .nav-links .btn {
+        margin-top: 2rem;
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
     }
 
     .nav-links a:last-child {
-        border-bottom: none;
         margin-top: 1rem;
+        border-bottom: none;
     }
 
     .mobile-menu-toggle {
         display: block;
-        z-index: 250;
+        z-index: 2000;
+        /* Ensure above the nav-links overlay */
         position: relative;
     }
 
