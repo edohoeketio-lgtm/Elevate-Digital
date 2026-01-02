@@ -1048,6 +1048,7 @@ p {
         max-width: 300px;
         text-align: center;
         font-size: 1rem;
+        color: #081122;
     }
 
     .nav-links a:last-child {
