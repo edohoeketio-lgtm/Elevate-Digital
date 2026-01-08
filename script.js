@@ -401,3 +401,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 })();
+
+// ===== STICKY CTA BAR =====
+(function initStickyCta() {
+    const stickyCta = document.getElementById('stickyCta');
+    const heroSection = document.getElementById('home');
+
+    if (!stickyCta || !heroSection) return;
+
+    window.addEventListener('scroll', () => {
+        if (heroSection.getBoundingClientRect().bottom < 0) {
+            stickyCta.classList.add('visible');
+        } else {
+            stickyCta.classList.remove('visible');
+        }
+    });
+})();
