@@ -17,24 +17,45 @@ const BreakoutGame = (function () {
     const PADDLE_WIDTH = 120;
 
     function init() {
-        createGameElements();
-        collectBricks();
-        resetBall();
+        // Scroll to top so elements are visible
+        window.scrollTo({ top: 0, behavior: 'instant' });
 
-        score = 0;
-        lives = 3;
-        gameRunning = true;
+        // Hide sticky CTA bar
+        const stickyBar = document.querySelector('.sticky-cta');
+        if (stickyBar) stickyBar.style.display = 'none';
 
-        // Add event listeners
-        document.addEventListener('mousemove', movePaddle);
-        document.addEventListener('touchmove', movePaddleTouch, { passive: false });
-        document.addEventListener('keydown', handleKey);
+        // Hide the basement section
+        const basement = document.getElementById('secretBasement');
+        if (basement) basement.style.display = 'none';
 
-        document.body.classList.add('breakout-active');
-        updateUI();
+        // Wait for scroll to complete, then setup
+        setTimeout(() => {
+            createGameElements();
+            collectBricks();
 
-        // Start game loop
-        gameLoop();
+            if (bricks.length === 0) {
+                alert('No elements found to break! Try scrolling up first.');
+                destroy();
+                return;
+            }
+
+            resetBall();
+
+            score = 0;
+            lives = 3;
+            gameRunning = true;
+
+            // Add event listeners
+            document.addEventListener('mousemove', movePaddle);
+            document.addEventListener('touchmove', movePaddleTouch, { passive: false });
+            document.addEventListener('keydown', handleKey);
+
+            document.body.classList.add('breakout-active');
+            updateUI();
+
+            // Start game loop
+            gameLoop();
+        }, 100);
     }
 
     function createGameElements() {
@@ -58,7 +79,7 @@ const BreakoutGame = (function () {
         paddleEl.className = 'breakout-paddle';
         paddleEl.style.cssText = `
             position: fixed;
-            bottom: 30px;
+            bottom: 20px;
             width: ${PADDLE_WIDTH}px;
             height: ${PADDLE_HEIGHT}px;
             background: linear-gradient(to bottom, #fff, #ccc);
@@ -77,7 +98,7 @@ const BreakoutGame = (function () {
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.9);
             padding: 10px 25px;
             border-radius: 25px;
             z-index: 10002;
@@ -99,7 +120,7 @@ const BreakoutGame = (function () {
     }
 
     function collectBricks() {
-        // Find elements to use as bricks
+        // Find ANY visible elements on the page
         const selectors = [
             '.project-card',
             '.service-card',
@@ -108,9 +129,16 @@ const BreakoutGame = (function () {
             '.testimonial-card',
             '.pricing-card',
             '.stat-item',
+            '.feature-card',
+            '.step-card',
+            '.cta-card',
             'section h2',
+            'section h1',
             '.hero h1',
-            '.btn--primary:not(.breakout-ui *)'
+            '.hero-text',
+            '.btn:not(.breakout-ui *):not(.sticky-cta *)',
+            'img:not(.logo)',
+            '.card'
         ];
 
         const elements = document.querySelectorAll(selectors.join(', '));
@@ -118,18 +146,21 @@ const BreakoutGame = (function () {
 
         elements.forEach(el => {
             const rect = el.getBoundingClientRect();
-            // Only include visible elements in viewport
-            if (rect.top < window.innerHeight && rect.bottom > 0 &&
+            // Only include visible elements on screen
+            if (rect.top < window.innerHeight - 50 && rect.bottom > 80 &&
                 rect.left < window.innerWidth && rect.right > 0 &&
-                rect.width > 30 && rect.height > 20) {
+                rect.width > 40 && rect.height > 25) {
                 bricks.push({
                     element: el,
                     rect: rect,
                     alive: true
                 });
                 el.style.transition = 'transform 0.3s, opacity 0.3s';
+                el.dataset.breakoutBrick = 'true';
             }
         });
+
+        console.log('Breakout: Found', bricks.length, 'breakable elements');
     }
 
     function resetBall() {
@@ -348,7 +379,15 @@ const BreakoutGame = (function () {
             brick.element.style.transform = '';
             brick.element.style.opacity = '';
             brick.element.classList.remove('shattered');
+            delete brick.element.dataset.breakoutBrick;
         });
+
+        // Restore hidden elements
+        const stickyBar = document.querySelector('.sticky-cta');
+        if (stickyBar) stickyBar.style.display = '';
+
+        const basement = document.getElementById('secretBasement');
+        if (basement) basement.style.display = '';
 
         document.body.classList.remove('breakout-active');
         document.removeEventListener('mousemove', movePaddle);
