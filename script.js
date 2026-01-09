@@ -429,12 +429,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const IDLE_TIMEOUT = 30000; // 30 seconds
     let idleTimer = null;
     let toastDismissed = false;
+    let gameInitialized = false;
 
     const idleToast = document.getElementById('idleToast');
-    if (!idleToast) return;
+    const gameModal = document.getElementById('gameModal');
+
+    if (!idleToast || !gameModal) return;
 
     const playBtn = document.getElementById('idlePlayBtn');
     const dismissBtn = document.getElementById('idleDismissBtn');
+    const closeBtn = document.getElementById('gameCloseBtn');
 
     function resetIdleTimer() {
         if (toastDismissed) return;
@@ -454,18 +458,45 @@ document.addEventListener('DOMContentLoaded', () => {
         idleToast.classList.remove('visible');
     }
 
-    function startGame() {
+    function openGame() {
         hideToast();
-        clearTimeout(idleTimer);
-        toastDismissed = true;
+        gameModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
 
-        if (typeof BreakoutGame !== 'undefined') {
-            BreakoutGame.init();
+        if (!gameInitialized && typeof TetrisGame !== 'undefined') {
+            TetrisGame.init('tetrisCanvas', 'nextPieceCanvas');
+            gameInitialized = true;
+        } else if (gameInitialized && typeof TetrisGame !== 'undefined') {
+            TetrisGame.reset();
         }
     }
 
+    function closeGame() {
+        gameModal.classList.remove('active');
+        document.body.style.overflow = '';
+        resetIdleTimer();
+    }
+
     // Event listeners
-    if (playBtn) playBtn.addEventListener('click', startGame);
+    if (playToastBtn) playToastBtn.addEventListener('click', openGame);
+    if (toastCloseBtn) toastCloseBtn.addEventListener('click', () => {
+        hideToast();
+        toastDismissed = true;
+    });
+    if (gameCloseBtn) gameCloseBtn.addEventListener('click', closeGame);
+
+    // Theme selector
+    const themeSelector = document.getElementById('themeSelector');
+    if (themeSelector) {
+        themeSelector.addEventListener('change', (e) => {
+            if (typeof TetrisGame !== 'undefined') {
+                TetrisGame.setTheme(e.target.value);
+                // Remove focus from selector so keyboard controls still work
+                e.target.blur();
+            }
+        });
+    }
+    if (playBtn) playBtn.addEventListener('click', openGame);
     if (dismissBtn) {
         dismissBtn.addEventListener('click', () => {
             hideToast();
@@ -473,6 +504,21 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(idleTimer);
         });
     }
+    if (closeBtn) closeBtn.addEventListener('click', closeGame);
+
+    // Close on ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && gameModal.classList.contains('active')) {
+            closeGame();
+        }
+    });
+
+    // Close on backdrop click
+    gameModal.addEventListener('click', (e) => {
+        if (e.target === gameModal) {
+            closeGame();
+        }
+    });
 
     // Reset timer on user activity
     const activityEvents = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart'];
@@ -514,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Basement play button
         if (basementPlayBtn) {
-            basementPlayBtn.addEventListener('click', startGame);
+            basementPlayBtn.addEventListener('click', openGame);
         }
     }
 })();

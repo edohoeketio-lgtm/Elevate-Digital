@@ -364,13 +364,49 @@
         <div class="basement-content">
             <p class="basement-typewriter">You scrolled pretty far... wanna play? 🎮</p>
             <div class="basement-btn-wrapper">
-                <button class="btn btn--primary" id="basementPlayBtn">Break Stuff!</button>
+                <button class="btn btn--primary" id="basementPlayBtn">Play Tetris</button>
             </div>
         </div>
     </div>
 
-    <!-- Breakout Game -->
-    <script src="../breakout.js"></script>
+    <!-- Game Modal -->
+    <div class="game-modal" id="gameModal">
+        <div class="game-container">
+            <button class="game-close" id="gameCloseBtn">&times;</button>
+            <canvas id="tetrisCanvas" class="tetris-board"></canvas>
+            <div class="game-sidebar">
+                <div class="theme-selector-container">
+                    <h4>Theme</h4>
+                    <select id="themeSelector" class="theme-select">
+                        <option value="default">Default</option>
+                        <option value="retro">Retro (Gameboy)</option>
+                        <option value="neon">Neon (Cyberpunk)</option>
+                        <option value="pastel">Pastel</option>
+                    </select>
+                </div>
+                <div>
+                    <h4>Score</h4>
+                    <div class="stat-value" id="tetris-score">0</div>
+                </div>
+                <div>
+                    <h4>Lines</h4>
+                    <div class="stat-value" id="tetris-lines">0</div>
+                </div>
+                <div>
+                    <h4>Level</h4>
+                    <div class="stat-value" id="tetris-level">1</div>
+                </div>
+                <div>
+                    <h4>Next</h4>
+                    <div class="next-piece-box"><canvas id="nextPieceCanvas"></canvas></div>
+                </div>
+                <div class="game-controls"><strong>Controls:</strong><br>← → Move · ↓ Drop · ↑ Rotate · P Pause</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tetris Game -->
+    <script src="../tetris.js"></script>
 
     <!-- JavaScript -->
     <script src="../script.js"></script>
