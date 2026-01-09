@@ -2332,33 +2332,135 @@ a.portfolio-item:focus-visible {
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.secret-basement.visible {
-    opacity: 1;
+    overflow: hidden;
+    position: relative;
 }
 
 .basement-content {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    transform: translateX(-100px);
 }
 
-.basement-hint {
-    font-size: 1.25rem;
-    color: var(--accent);
-    margin-bottom: 1rem;
-    animation: pulse 2s ease-in-out infinite;
+.secret-basement.visible .basement-content {
+    animation: characterWalkIn 1s ease-out 0.3s forwards;
 }
 
-@keyframes pulse {
+@keyframes characterWalkIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateX(10px);
+    }
+
+    80% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.basement-character {
+    font-size: 3rem;
+    animation: characterBounce 0.5s ease-in-out infinite;
+    animation-delay: 1.3s;
+    animation-play-state: paused;
+}
+
+.secret-basement.visible .basement-character {
+    animation-play-state: running;
+}
+
+@keyframes characterBounce {
 
     0%,
     100% {
-        opacity: 0.7;
+        transform: translateY(0);
     }
 
     50% {
+        transform: translateY(-8px);
+    }
+}
+
+.basement-speech {
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    border-radius: var(--r-lg);
+    padding: 1rem 1.5rem;
+    position: relative;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.secret-basement.visible .basement-speech {
+    animation: speechPop 0.4s ease-out 1s forwards;
+}
+
+@keyframes speechPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    70% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.basement-speech::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid var(--accent);
+}
+
+.basement-speech::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--surface);
+}
+
+.basement-hint {
+    font-size: 1rem;
+    color: var(--text);
+    margin: 0 0 0.75rem 0;
+}
+
+.basement-speech .btn {
+    opacity: 0;
+}
+
+.secret-basement.visible .basement-speech .btn {
+    animation: fadeIn 0.3s ease-out 1.4s forwards;
+}
+
+@keyframes fadeIn {
+    to {
         opacity: 1;
     }
 }
