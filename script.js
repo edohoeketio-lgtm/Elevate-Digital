@@ -1,3 +1,9 @@
+// ===== SCROLL TO TOP ON LOAD =====
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 // ===== SMOOTH SCROLL NAVIGATION =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
