@@ -511,16 +511,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (basement) {
         let userHasScrolled = false;
+        let canReveal = false;
+
+        // Wait for page to settle before allowing reveal
+        setTimeout(() => {
+            canReveal = true;
+        }, 500);
 
         // Only enable basement reveal after user actively scrolls
         window.addEventListener('scroll', () => {
             userHasScrolled = true;
         }, { once: true });
 
-        // Reveal basement when scrolling to it (after user has scrolled)
+        // Reveal basement when scrolling to it (after user has scrolled AND page settled)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && userHasScrolled) {
+                if (entry.isIntersecting && userHasScrolled && canReveal) {
                     basement.classList.add('visible');
                 }
             });
