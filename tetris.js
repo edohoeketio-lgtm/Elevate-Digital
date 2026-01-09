@@ -47,7 +47,62 @@ const TetrisGame = (function () {
         nextCanvas.height = 4 * BLOCK_SIZE;
 
         document.addEventListener('keydown', handleKeyPress);
+
+        // Mobile touch controls
+        initTouchControls();
+
         reset();
+    }
+
+    function initTouchControls() {
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchStartTime = 0;
+        const SWIPE_THRESHOLD = 30;
+        const TAP_THRESHOLD = 200; // ms
+
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            touchStartTime = Date.now();
+        }, { passive: false });
+
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            const touch = e.changedTouches[0];
+            const deltaX = touch.clientX - touchStartX;
+            const deltaY = touch.clientY - touchStartY;
+            const elapsed = Date.now() - touchStartTime;
+
+            if (gameOver) {
+                reset();
+                return;
+            }
+
+            if (paused) return;
+
+            // Detect tap vs swipe
+            if (Math.abs(deltaX) < SWIPE_THRESHOLD && Math.abs(deltaY) < SWIPE_THRESHOLD && elapsed < TAP_THRESHOLD) {
+                // Tap = rotate
+                rotate();
+            } else if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                // Horizontal swipe
+                if (deltaX > SWIPE_THRESHOLD) {
+                    moveRight();
+                } else if (deltaX < -SWIPE_THRESHOLD) {
+                    moveLeft();
+                }
+            } else {
+                // Vertical swipe
+                if (deltaY > SWIPE_THRESHOLD) {
+                    // Swipe down = soft drop
+                    if (moveDown()) score += 1;
+                    dropCounter = 0;
+                }
+            }
+        }, { passive: false });
     }
 
     function reset() {
