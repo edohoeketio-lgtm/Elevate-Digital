@@ -1,11 +1,12 @@
 // ===== BREAKOUT GAME =====
-// Ball bounces off page elements and shatters them
+// Survival Mode: Page scrolls UP (content falls DOWN), player must break elements before they pass the paddle.
 
 const BreakoutGame = (function () {
     let ball, paddle, bricks;
     let score, lives;
     let gameRunning = false;
     let animationId;
+    let scrollSpeed = 0.5;
 
     // Game elements
     let ballEl, paddleEl, uiEl;
@@ -17,8 +18,8 @@ const BreakoutGame = (function () {
     const PADDLE_WIDTH = 120;
 
     function init() {
-        // Scroll to top so elements are visible
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        // Start at the bottom
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' });
 
         // Hide sticky CTA bar
         const stickyBar = document.querySelector('.sticky-cta');
@@ -28,7 +29,7 @@ const BreakoutGame = (function () {
         const basement = document.getElementById('secretBasement');
         if (basement) basement.style.display = 'none';
 
-        // Wait for scroll to complete, then setup
+        // Wait for setup
         setTimeout(() => {
             createGameElements();
             collectBricks();
@@ -43,6 +44,7 @@ const BreakoutGame = (function () {
 
             score = 0;
             lives = 3;
+            scrollSpeed = 0.3; // Start slow
             gameRunning = true;
 
             // Add event listeners
@@ -179,20 +181,19 @@ const BreakoutGame = (function () {
             if (el.classList && el.classList.contains('breakout-ui')) return;
 
             const rect = el.getBoundingClientRect();
+            // Store absolute page position because we will be scrolling
+            const absTop = rect.top + window.scrollY;
 
-            // Only include visible elements on screen
-            if (rect.top < window.innerHeight - 30 && rect.bottom > 60 &&
-                rect.left < window.innerWidth && rect.right > 0 &&
-                rect.width > 30 && rect.height > 15 &&
-                rect.width < window.innerWidth * 0.95) {
-
+            // Include ALL elements in the document, not just viewport
+            if (rect.width > 20 && rect.height > 10 && rect.width < window.innerWidth * 0.98) {
                 // Skip if parent is already a brick
                 const isChildOfBrick = bricks.some(b => b.element.contains(el) && b.element !== el);
                 if (isChildOfBrick) return;
 
                 bricks.push({
                     element: el,
-                    rect: rect,
+                    rect: rect, // Valid at collection time
+                    absTop: absTop, // Valid forever (until reset)
                     alive: true
                 });
                 el.style.transition = 'transform 0.2s, opacity 0.2s';
@@ -241,6 +242,15 @@ const BreakoutGame = (function () {
     function gameLoop() {
         if (!gameRunning) return;
 
+        // Survival Mode: Auto-scroll UP (content falls DOWN)
+        if (window.scrollY > 0) {
+            window.scrollBy(0, -scrollSpeed);
+        } else {
+            // Reached TOP of page! Win!
+            gameOver(true);
+            return;
+        }
+
         // Move ball
         ball.x += ball.vx;
         ball.y += ball.vy;
@@ -281,40 +291,62 @@ const BreakoutGame = (function () {
             resetBall();
         }
 
-        // Brick collisions
-        let allDestroyed = true;
+        // Brick collisions & Survival Checks
+        const currentScrollY = window.scrollY;
+
         bricks.forEach(brick => {
             if (!brick.alive) return;
-            allDestroyed = false;
 
-            const rect = brick.rect;
-            if (ball.x + BALL_SIZE / 2 > rect.left &&
-                ball.x - BALL_SIZE / 2 < rect.right &&
-                ball.y + BALL_SIZE / 2 > rect.top &&
-                ball.y - BALL_SIZE / 2 < rect.bottom) {
+            // Calculate current visual position relative to viewport
+            // Brick visual Y = Absolute Y - Current Scroll Y
+            const visualTop = brick.absTop - currentScrollY;
+            const visualBottom = visualTop + brick.rect.height;
+            const visualLeft = brick.rect.left;
+            const visualRight = brick.rect.right;
+
+            // Survival Check: If brick falls completely below viewport
+            if (visualTop > window.innerHeight) {
+                // Ignore small items or elements that were already below?
+                // For now, if anything significant passes, you lose.
+                if (brick.rect.height > 20) {
+                    lives = 0;
+                    gameOver(false);
+                    return;
+                }
+            }
+
+            // Only check collision if brick is actually on screen
+            if (visualBottom < 0 || visualTop > window.innerHeight) return;
+
+            // Collision AABB
+            if (ball.x + BALL_SIZE / 2 > visualLeft &&
+                ball.x - BALL_SIZE / 2 < visualRight &&
+                ball.y + BALL_SIZE / 2 > visualTop &&
+                ball.y - BALL_SIZE / 2 < visualBottom) {
 
                 // Hit!
                 brick.alive = false;
                 score += 100;
+
+                // Increase scroll speed slightly on every hit
+                scrollSpeed += 0.05;
+                if (scrollSpeed > 3) scrollSpeed = 3; // Cap speed
+
                 updateUI();
                 shatterElement(brick.element);
 
                 // Bounce
-                const fromLeft = ball.x < rect.left;
-                const fromRight = ball.x > rect.right;
-                const fromTop = ball.y < rect.top;
-                const fromBottom = ball.y > rect.bottom;
+                const fromLeft = ball.x < visualLeft;
+                const fromRight = ball.x > visualRight;
+                const fromTop = ball.y < visualTop;
+                const fromBottom = ball.y > visualBottom;
 
                 if (fromLeft || fromRight) ball.vx *= -1;
                 if (fromTop || fromBottom) ball.vy *= -1;
             }
         });
 
-        // Win check
-        if (allDestroyed && bricks.length > 0) {
-            gameOver(true);
-            return;
-        }
+        if (!gameRunning) return; // Check again in case game over triggered
 
         updateBallPosition();
         animationId = requestAnimationFrame(gameLoop);
@@ -365,7 +397,7 @@ const BreakoutGame = (function () {
         uiEl.innerHTML = `
             <span>⭐ Score: <strong>${score}</strong></span>
             <span>❤️ Lives: <strong>${lives}</strong></span>
-            <span style="opacity: 0.6; font-size: 12px;">ESC to exit</span>
+            <span style="opacity: 0.6; font-size: 12px; margin-left: 10px;">⚡ Speed: ${scrollSpeed.toFixed(1)}x</span>
         `;
     }
 
@@ -387,8 +419,9 @@ const BreakoutGame = (function () {
             color: #fff;
         `;
         overlay.innerHTML = `
-            <h2 style="font-size: 3rem; margin: 0;">${won ? '🎉 YOU WIN!' : '💥 GAME OVER'}</h2>
+            <h2 style="font-size: 3rem; margin: 0;">${won ? '🎉 CLEAN SWEEP!' : '💥 GAME OVER'}</h2>
             <p style="font-size: 1.5rem; margin: 1rem 0;">Score: ${score}</p>
+            <p>${won ? 'You cleared the page!' : 'The website crushed you.'}</p>
             <button onclick="location.reload()" style="
                 background: var(--accent, #d4ff00);
                 color: #000;
