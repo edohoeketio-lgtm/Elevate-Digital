@@ -18,7 +18,10 @@ const BreakoutGame = (function () {
     const PADDLE_WIDTH = 120;
 
     function init() {
-        // Start at the bottom
+        // Add buffer to push content up so it doesn't crush player
+        document.body.style.marginBottom = '80vh';
+
+        // Start at the bottom (now including the buffer)
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' });
 
         // Hide sticky CTA bar
@@ -447,7 +450,9 @@ const BreakoutGame = (function () {
         uiEl?.remove();
         document.querySelector('.breakout-gameover')?.remove();
 
-        // Restore bricks
+        // Restore bricks (and remove buffer)
+        document.body.style.marginBottom = ''; // REMOVE BUFFER
+
         bricks?.forEach(brick => {
             brick.element.style.transform = '';
             brick.element.style.opacity = '';
