@@ -510,10 +510,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const basementPlayBtn = document.getElementById('basementPlayBtn');
 
     if (basement) {
-        // Reveal basement when scrolling to it
+        let userHasScrolled = false;
+
+        // Only enable basement reveal after user actively scrolls
+        window.addEventListener('scroll', () => {
+            userHasScrolled = true;
+        }, { once: true });
+
+        // Reveal basement when scrolling to it (after user has scrolled)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && userHasScrolled) {
                     basement.classList.add('visible');
                 }
             });
