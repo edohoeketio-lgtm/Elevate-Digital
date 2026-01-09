@@ -445,7 +445,7 @@ const TetrisGame = (function () {
 
         ctx.font = '14px Inter, sans-serif';
         ctx.fillStyle = 'rgba(255,255,255,0.7)';
-        ctx.fillText('Press ENTER to restart', canvas.width / 2, canvas.height / 2 + 20);
+        ctx.fillText('Tap or press ENTER to restart', canvas.width / 2, canvas.height / 2 + 20);
     }
 
     function drawPaused() {
