@@ -58,19 +58,43 @@ const TetrisGame = (function () {
         let touchStartX = 0;
         let touchStartY = 0;
         let touchStartTime = 0;
-        const SWIPE_THRESHOLD = 30;
-        const TAP_THRESHOLD = 200; // ms
+        let lastMoveX = 0;
+        let isTouching = false;
+        const MOVE_THRESHOLD = 25;
+        const TAP_THRESHOLD = 150;
 
         canvas.addEventListener('touchstart', (e) => {
             e.preventDefault();
             const touch = e.touches[0];
             touchStartX = touch.clientX;
             touchStartY = touch.clientY;
+            lastMoveX = touch.clientX;
             touchStartTime = Date.now();
+            isTouching = true;
+        }, { passive: false });
+
+        canvas.addEventListener('touchmove', (e) => {
+            if (!isTouching || gameOver || paused) return;
+            e.preventDefault();
+
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - lastMoveX;
+
+            // Continuous horizontal movement while dragging
+            if (Math.abs(deltaX) > MOVE_THRESHOLD) {
+                if (deltaX > 0) {
+                    moveRight();
+                } else {
+                    moveLeft();
+                }
+                lastMoveX = touch.clientX;
+            }
         }, { passive: false });
 
         canvas.addEventListener('touchend', (e) => {
             e.preventDefault();
+            isTouching = false;
+
             const touch = e.changedTouches[0];
             const deltaX = touch.clientX - touchStartX;
             const deltaY = touch.clientY - touchStartY;
@@ -83,21 +107,17 @@ const TetrisGame = (function () {
 
             if (paused) return;
 
-            // Detect tap vs swipe
-            if (Math.abs(deltaX) < SWIPE_THRESHOLD && Math.abs(deltaY) < SWIPE_THRESHOLD && elapsed < TAP_THRESHOLD) {
-                // Tap = rotate
+            // Tap = rotate (quick tap with minimal movement)
+            if (Math.abs(deltaX) < MOVE_THRESHOLD && Math.abs(deltaY) < MOVE_THRESHOLD && elapsed < TAP_THRESHOLD) {
                 rotate();
-            } else if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                // Horizontal swipe
-                if (deltaX > SWIPE_THRESHOLD) {
-                    moveRight();
-                } else if (deltaX < -SWIPE_THRESHOLD) {
-                    moveLeft();
-                }
-            } else {
-                // Vertical swipe
-                if (deltaY > SWIPE_THRESHOLD) {
-                    // Swipe down = soft drop
+            }
+            // Swipe down = drop
+            else if (deltaY > MOVE_THRESHOLD * 2 && Math.abs(deltaY) > Math.abs(deltaX)) {
+                // Fast swipe down = hard drop
+                if (elapsed < 200 && deltaY > 80) {
+                    hardDrop();
+                } else {
+                    // Soft drop
                     if (moveDown()) score += 1;
                     dropCounter = 0;
                 }
