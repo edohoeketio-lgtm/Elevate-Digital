@@ -348,6 +348,54 @@
         <img class="lightbox-image" src="" alt="">
     </div>
 
+    <!-- Idle Toast -->
+    <div class="idle-toast" id="idleToast">
+        <span class="idle-toast-icon">🎮</span>
+        <span class="idle-toast-text">Bored? Play Tetris</span>
+        <div class="idle-toast-actions">
+            <button class="btn btn--primary btn--sm" id="idlePlayBtn">Play</button>
+            <button class="btn btn--ghost" id="idleDismissBtn">Dismiss</button>
+        </div>
+    </div>
+
+    <!-- Secret Basement -->
+    <div class="secret-basement" id="secretBasement">
+        <div class="basement-content">
+            <p class="basement-hint">🕹️ You found the secret basement!</p>
+            <button class="btn btn--primary" id="basementPlayBtn">Play Tetris</button>
+        </div>
+    </div>
+
+    <!-- Game Modal -->
+    <div class="game-modal" id="gameModal">
+        <div class="game-container">
+            <button class="game-close" id="gameCloseBtn">&times;</button>
+            <canvas id="tetrisCanvas" class="tetris-board"></canvas>
+            <div class="game-sidebar">
+                <div>
+                    <h4>Score</h4>
+                    <div class="stat-value" id="tetris-score">0</div>
+                </div>
+                <div>
+                    <h4>Lines</h4>
+                    <div class="stat-value" id="tetris-lines">0</div>
+                </div>
+                <div>
+                    <h4>Level</h4>
+                    <div class="stat-value" id="tetris-level">1</div>
+                </div>
+                <div>
+                    <h4>Next</h4>
+                    <div class="next-piece-box"><canvas id="nextPieceCanvas"></canvas></div>
+                </div>
+                <div class="game-controls"><strong>Controls:</strong><br>← → Move · ↓ Drop · ↑ Rotate · P Pause</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tetris Game -->
+    <script src="../tetris.js"></script>
+
     <!-- JavaScript -->
     <script src="../script.js"></script>
 </body>

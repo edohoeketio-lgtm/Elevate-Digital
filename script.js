@@ -417,3 +417,113 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 })();
+
+// ===== IDLE TIMER + GAME =====
+(function initIdleGame() {
+    const IDLE_TIMEOUT = 30000; // 30 seconds
+    let idleTimer = null;
+    let toastDismissed = false;
+    let gameInitialized = false;
+
+    const idleToast = document.getElementById('idleToast');
+    const gameModal = document.getElementById('gameModal');
+
+    if (!idleToast || !gameModal) return;
+
+    const playBtn = document.getElementById('idlePlayBtn');
+    const dismissBtn = document.getElementById('idleDismissBtn');
+    const closeBtn = document.getElementById('gameCloseBtn');
+
+    function resetIdleTimer() {
+        if (toastDismissed) return;
+
+        clearTimeout(idleTimer);
+        hideToast();
+
+        idleTimer = setTimeout(showToast, IDLE_TIMEOUT);
+    }
+
+    function showToast() {
+        if (toastDismissed) return;
+        idleToast.classList.add('visible');
+    }
+
+    function hideToast() {
+        idleToast.classList.remove('visible');
+    }
+
+    function openGame() {
+        hideToast();
+        gameModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        if (!gameInitialized && typeof TetrisGame !== 'undefined') {
+            TetrisGame.init('tetrisCanvas', 'nextPieceCanvas');
+            gameInitialized = true;
+        } else if (gameInitialized && typeof TetrisGame !== 'undefined') {
+            TetrisGame.reset();
+        }
+    }
+
+    function closeGame() {
+        gameModal.classList.remove('active');
+        document.body.style.overflow = '';
+        resetIdleTimer();
+    }
+
+    // Event listeners
+    if (playBtn) playBtn.addEventListener('click', openGame);
+    if (dismissBtn) {
+        dismissBtn.addEventListener('click', () => {
+            hideToast();
+            toastDismissed = true;
+            clearTimeout(idleTimer);
+        });
+    }
+    if (closeBtn) closeBtn.addEventListener('click', closeGame);
+
+    // Close on ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && gameModal.classList.contains('active')) {
+            closeGame();
+        }
+    });
+
+    // Close on backdrop click
+    gameModal.addEventListener('click', (e) => {
+        if (e.target === gameModal) {
+            closeGame();
+        }
+    });
+
+    // Reset timer on user activity
+    const activityEvents = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart'];
+    activityEvents.forEach(event => {
+        document.addEventListener(event, resetIdleTimer, { passive: true });
+    });
+
+    // Start the idle timer
+    resetIdleTimer();
+
+    // ===== SECRET BASEMENT =====
+    const basement = document.getElementById('secretBasement');
+    const basementPlayBtn = document.getElementById('basementPlayBtn');
+
+    if (basement) {
+        // Reveal basement when scrolling to it
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    basement.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(basement);
+
+        // Basement play button
+        if (basementPlayBtn) {
+            basementPlayBtn.addEventListener('click', openGame);
+        }
+    }
+})();

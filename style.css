@@ -983,6 +983,16 @@ p {
     color: var(--color-text-muted);
 }
 
+.footer a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer a:hover {
+    color: var(--accent);
+}
+
 .hubspot-badge {
     background: rgba(255, 140, 0, 0.1);
     color: #FF8C00;
@@ -2154,5 +2164,201 @@ a.portfolio-item:focus-visible {
 
     .sticky-cta span {
         font-size: 0.8rem;
+    }
+}
+
+/* ===== IDLE TOAST ===== */
+.idle-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 100;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    transform: translateY(150%);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.idle-toast.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.idle-toast-icon {
+    font-size: 1.5rem;
+}
+
+.idle-toast-text {
+    color: var(--text);
+    font-weight: 500;
+}
+
+.idle-toast-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.idle-toast .btn--ghost {
+    background: transparent;
+    color: var(--muted);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border: 1px solid var(--border);
+}
+
+.idle-toast .btn--ghost:hover {
+    color: var(--text);
+    border-color: var(--muted);
+}
+
+/* ===== GAME MODAL ===== */
+.game-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.game-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.game-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 2rem;
+    display: flex;
+    gap: 2rem;
+    position: relative;
+}
+
+.game-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.game-close:hover {
+    color: var(--text);
+}
+
+.tetris-board {
+    border: 2px solid var(--border);
+    border-radius: var(--r-sm);
+}
+
+.game-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 120px;
+}
+
+.game-sidebar h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+}
+
+.game-sidebar .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.next-piece-box {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 0.5rem;
+}
+
+.game-controls {
+    margin-top: auto;
+    font-size: 0.75rem;
+    color: var(--muted-2);
+    line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+    .idle-toast {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .game-container {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .game-sidebar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
+/* ===== SECRET BASEMENT ===== */
+.secret-basement {
+    height: 300px;
+    background: linear-gradient(to bottom, var(--bg) 0%, #050508 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.secret-basement.visible {
+    opacity: 1;
+}
+
+.basement-content {
+    text-align: center;
+}
+
+.basement-hint {
+    font-size: 1.25rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
     }
 }
