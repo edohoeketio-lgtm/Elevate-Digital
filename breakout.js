@@ -120,8 +120,27 @@ const BreakoutGame = (function () {
     }
 
     function collectBricks() {
-        // Find ANY visible elements on the page
+        // Find EVERYTHING visible on the page
         const selectors = [
+            // Structural
+            'section',
+            'header',
+            'nav',
+            'footer',
+            'article',
+            'aside',
+            // Content containers
+            '.container > *',
+            '.hero',
+            '.hero-content',
+            '.hero-visual',
+            // Text elements
+            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+            'p',
+            'li',
+            'blockquote',
+            // Cards and items
+            '.card',
             '.project-card',
             '.service-card',
             '.benefit-item',
@@ -130,32 +149,53 @@ const BreakoutGame = (function () {
             '.pricing-card',
             '.stat-item',
             '.feature-card',
-            '.step-card',
-            '.cta-card',
-            'section h2',
-            'section h1',
-            '.hero h1',
-            '.hero-text',
-            '.btn:not(.breakout-ui *):not(.sticky-cta *)',
-            'img:not(.logo)',
-            '.card'
+            // Media
+            'img',
+            'video',
+            'svg:not(.breakout-ui svg)',
+            // Interactive
+            '.btn:not(.breakout-ui *)',
+            'button:not(.breakout-ui *)',
+            'a:not(.breakout-ui *)',
+            'input',
+            'form',
+            // Generic elements
+            '[class*="card"]',
+            '[class*="item"]',
+            '[class*="box"]',
+            '[class*="wrapper"]',
+            '[class*="content"]'
         ];
 
-        const elements = document.querySelectorAll(selectors.join(', '));
+        // Exclude game UI elements
+        const excludeSelectors = '.breakout-ui, .breakout-ball, .breakout-paddle, .breakout-gameover, .sticky-cta, .secret-basement, #secretBasement, script, style, link, meta';
+
+        const allElements = document.querySelectorAll(selectors.join(', '));
         bricks = [];
 
-        elements.forEach(el => {
+        allElements.forEach(el => {
+            // Skip excluded elements
+            if (el.closest(excludeSelectors)) return;
+            if (el.classList && el.classList.contains('breakout-ui')) return;
+
             const rect = el.getBoundingClientRect();
+
             // Only include visible elements on screen
-            if (rect.top < window.innerHeight - 50 && rect.bottom > 80 &&
+            if (rect.top < window.innerHeight - 30 && rect.bottom > 60 &&
                 rect.left < window.innerWidth && rect.right > 0 &&
-                rect.width > 40 && rect.height > 25) {
+                rect.width > 30 && rect.height > 15 &&
+                rect.width < window.innerWidth * 0.95) {
+
+                // Skip if parent is already a brick
+                const isChildOfBrick = bricks.some(b => b.element.contains(el) && b.element !== el);
+                if (isChildOfBrick) return;
+
                 bricks.push({
                     element: el,
                     rect: rect,
                     alive: true
                 });
-                el.style.transition = 'transform 0.3s, opacity 0.3s';
+                el.style.transition = 'transform 0.2s, opacity 0.2s';
                 el.dataset.breakoutBrick = 'true';
             }
         });
