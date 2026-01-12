@@ -7,6 +7,23 @@
     <meta name="description" content="Simple, transparent pricing for marketing systems and growth.">
     <title>Pricing | Lazrbeam</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Social Cards (Open Graph / Twitter) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://marketing-agency-red.vercel.app/pricing.html">
+    <meta property="og:title" content="Pricing | Lazrbeam">
+    <meta property="og:description" content="Simple, transparent pricing for marketing systems and growth.">
+    <meta property="og:image" content="https://marketing-agency-red.vercel.app/images/saas_landing_page.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="marketing-agency-red.vercel.app">
+    <meta property="twitter:url" content="https://marketing-agency-red.vercel.app/pricing.html">
+    <meta name="twitter:title" content="Pricing | Lazrbeam">
+    <meta name="twitter:description" content="Simple, transparent pricing for marketing systems and growth.">
+    <meta name="twitter:image" content="https://marketing-agency-red.vercel.app/images/saas_landing_page.png">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -333,7 +350,7 @@
                 </div>
                 <div class="footer-section">
                     <h3>Connect</h3>
-                    <p><a href="mailto:hello@elevatedigital.com">hello@elevatedigital.com</a></p>
+                    <p><a href="mailto:avi@lazrbeam.com">avi@lazrbeam.com</a></p>
                     <div class="social-links" style="margin-top: 1rem;">
                         <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
                         <a href="#" class="social-link" aria-label="Twitter">🐦</a>
@@ -351,65 +368,6 @@
         <span>Ready to move fast?</span>
         <a href="index.html#contact" class="btn btn--primary btn--sm">Book a Strategy Call</a>
     </div>
-
-    <!-- Idle Toast -->
-    <div class="idle-toast" id="idleToast">
-        <span class="idle-toast-icon">🎮</span>
-        <span class="idle-toast-text">Bored? Play Tetris</span>
-        <div class="idle-toast-actions">
-            <button class="btn btn--primary btn--sm" id="idlePlayBtn">Play</button>
-            <button class="btn btn--ghost" id="idleDismissBtn">Dismiss</button>
-        </div>
-    </div>
-
-    <!-- Secret Basement -->
-    <div class="secret-basement" id="secretBasement">
-        <div class="basement-content">
-            <p class="basement-typewriter">You scrolled pretty far... wanna play? 🎮</p>
-            <div class="basement-btn-wrapper">
-                <button class="btn btn--primary" id="basementPlayBtn">Play Tetris</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Game Modal -->
-    <div class="game-modal" id="gameModal">
-        <div class="game-container">
-            <button class="game-close" id="gameCloseBtn">&times;</button>
-            <canvas id="tetrisCanvas" class="tetris-board"></canvas>
-            <div class="game-sidebar">
-                <div class="theme-selector-container">
-                    <h4>Theme</h4>
-                    <select id="themeSelector" class="theme-select">
-                        <option value="default">Default</option>
-                        <option value="retro">Retro (Gameboy)</option>
-                        <option value="neon">Neon (Cyberpunk)</option>
-                        <option value="pastel">Pastel</option>
-                    </select>
-                </div>
-                <div>
-                    <h4>Score</h4>
-                    <div class="stat-value" id="tetris-score">0</div>
-                </div>
-                <div>
-                    <h4>Lines</h4>
-                    <div class="stat-value" id="tetris-lines">0</div>
-                </div>
-                <div>
-                    <h4>Level</h4>
-                    <div class="stat-value" id="tetris-level">1</div>
-                </div>
-                <div>
-                    <h4>Next</h4>
-                    <div class="next-piece-box"><canvas id="nextPieceCanvas"></canvas></div>
-                </div>
-                <div class="game-controls"><strong>Controls:</strong><br>← → Move · ↓ Drop · ↑ Rotate · P Pause</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tetris Game -->
-    <script src="tetris.js"></script>
 
     <!-- JavaScript -->
     <script src="script.js"></script>

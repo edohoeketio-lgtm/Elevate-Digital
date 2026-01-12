@@ -10,6 +10,25 @@
         content="HubSpot implementation, SaaS marketing, ABM, lifecycle marketing, marketing operations, fractional CMO">
     <title>Lazrbeam | Scalable Marketing Systems for SaaS</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Social Cards (Open Graph / Twitter) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://marketing-agency-red.vercel.app/">
+    <meta property="og:title" content="Lazrbeam | Scalable Marketing Systems for SaaS">
+    <meta property="og:description"
+        content="Marketing systems for startups and growth-stage SaaS. We build scalable HubSpot, lifecycle, and ABM engines without the bloat.">
+    <meta property="og:image" content="https://marketing-agency-red.vercel.app/images/saas_landing_page.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="marketing-agency-red.vercel.app">
+    <meta property="twitter:url" content="https://marketing-agency-red.vercel.app/">
+    <meta name="twitter:title" content="Lazrbeam | Scalable Marketing Systems for SaaS">
+    <meta name="twitter:description"
+        content="Marketing systems for startups and growth-stage SaaS. We build scalable HubSpot, lifecycle, and ABM engines without the bloat.">
+    <meta name="twitter:image" content="https://marketing-agency-red.vercel.app/images/saas_landing_page.png">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -356,15 +375,16 @@
     <section class="section" id="contact">
         <div class="container">
             <div class="text-center max-w-600 mx-auto fade-in">
-                <h2>Not Sure What You Need Yet?</h2>
-                <p class="mb-2">If HubSpot feels messy, growth feels inconsistent, or marketing just isn’t clicking —
+                <h2 class="mb-4">Not Sure What You Need Yet?</h2>
+                <p class="mb-4">If HubSpot feels messy, growth feels inconsistent, or marketing just isn’t clicking —
                     let’s talk.</p>
                 <p class="mb-4">I’ll help you figure out what to fix first.</p>
 
-                <form class="contact-form" id="contactForm" action="https://formsubmit.co/edohoeketio@gmail.com"
+                <form class="contact-form" id="contactForm" action="https://formsubmit.co/avi@lazrbeam.com"
                     method="POST">
                     <!-- FormSubmit Configuration -->
                     <input type="hidden" name="_subject" value="New System Review Request">
+                    <input type="hidden" name="_cc" value="edohoeketio@gmail.com">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="box">
                     <input type="hidden" name="_next" value=""> <!-- Handle via JS for confetti -->
@@ -420,7 +440,7 @@
                 </div>
                 <div class="footer-section">
                     <h3>Connect</h3>
-                    <p><a href="mailto:hello@elevatedigital.com">hello@elevatedigital.com</a></p>
+                    <p><a href="mailto:avi@lazrbeam.com">avi@lazrbeam.com</a></p>
                     <div class="social-links" style="margin-top: 1rem;">
                         <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
                         <a href="#" class="social-link" aria-label="Twitter">🐦</a>
@@ -448,77 +468,6 @@
             <div id="drawerBody"></div>
         </div>
     </div>
-
-    <!-- Idle Toast -->
-    <div class="idle-toast" id="idleToast">
-        <span class="idle-toast-icon">🎮</span>
-        <span class="idle-toast-text">Bored? Play Tetris</span>
-        <div class="idle-toast-actions">
-            <button class="btn btn--primary btn--sm" id="idlePlayBtn">Play</button>
-            <button class="btn btn--ghost" id="idleDismissBtn">Dismiss</button>
-        </div>
-    </div>
-
-    <!-- Secret Basement (scroll past footer) -->
-    <div class="secret-basement" id="secretBasement">
-        <div class="basement-content">
-            <p class="basement-typewriter">You scrolled pretty far... wanna play? 🎮</p>
-            <div class="basement-btn-wrapper">
-                <button class="btn btn--primary" id="basementPlayBtn">Play Tetris</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Game Modal -->
-    <div class="game-modal" id="gameModal">
-        <div class="game-container">
-            <button class="game-close" id="gameCloseBtn">&times;</button>
-            <canvas id="tetrisCanvas" class="tetris-board"></canvas>
-            <div class="game-sidebar">
-                <div class="theme-selector-container">
-                    <h4>Theme</h4>
-                    <select id="themeSelector" class="theme-select">
-                        <option value="default">Default</option>
-                        <option value="retro">Retro (Gameboy)</option>
-                        <option value="neon">Neon (Cyberpunk)</option>
-                        <option value="pastel">Pastel</option>
-                    </select>
-                </div>
-                <div>
-                    <h4>Score</h4>
-                    <div class="stat-value" id="tetris-score">0</div>
-                </div>
-                <div>
-                    <h4>Lines</h4>
-                    <div class="stat-value" id="tetris-lines">0</div>
-                </div>
-                <div>
-                    <h4>Level</h4>
-                    <div class="stat-value" id="tetris-level">1</div>
-                </div>
-                <div>
-                    <h4>Next</h4>
-                    <div class="next-piece-box">
-                        <canvas id="nextPieceCanvas"></canvas>
-                    </div>
-                </div>
-                <div class="game-controls">
-                    <strong>Controls:</strong><br>
-                    ← → Move<br>
-                    ↓ Soft drop<br>
-                    ↑ / Space: Rotate<br>
-                    Enter: Hard drop<br>
-                    P: Pause
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Confetti Library -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-
-    <!-- Tetris Game -->
-    <script src="tetris.js"></script>
 
     <!-- JavaScript -->
     <script src="script.js"></script>
