@@ -1,0 +1,12 @@
+{
+  "name": "elevate-digital-static",
+  "version": "1.0.0",
+  "description": "Static site build shim",
+  "main": "index.html",
+  "scripts": {
+    "build": "rm -rf dist && mkdir dist && cp *.html *.css *.js *.txt *.xml *.svg dist/ && cp -r case-studies assets images dist/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
